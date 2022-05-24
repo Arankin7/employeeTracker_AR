@@ -7,10 +7,10 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         // your MySQL username,
-        user: process.env.DB_name,
+        user: 'root',
         // Your MySQL password
         password: process.env.DB_PASSWORD,
-        database: process.env.DB_name
+        database: 'employee_tracker'
     },
     console.log('Connected to the Database;')
 )
