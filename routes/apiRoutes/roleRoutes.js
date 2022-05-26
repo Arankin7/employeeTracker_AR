@@ -37,7 +37,50 @@ router.get('/role/:id', (req, res) =>{
     });
 });
 
+// Post route to add a role
 
+router.post('/role', ({body}, res) =>{
+    const sql = `INSERT INTO roles(title, salary, department_id) VALUES (?,?,?)`;
+    const params = [body.title, body.salary, body.department_id];
 
+    db.query(sql, params, (err, result) =>{
+        if(err){
+            res.status(400).json({
+                error: err.message
+            });
+            return;
+        }
+        res.json({
+            message: 'Role added Successfully!',
+            data: body
+        });
+    });
+});
+
+// Route to delete a role
+router.delete('/role/:id', (req, res) =>{
+    const sql = `DELETE FROM roles WHERE id = ?`;
+
+    db.query(sql, req.params.id, (err, result) =>{
+        if(err){
+            res.json({
+                error: err.message
+            });
+            return;
+        }
+        else if(!result.affectedRows){
+            res.json({
+                message: 'No Role found with this ID.'
+            });
+        }
+        else {
+            res.json({
+                message: 'Route deleted successfully',
+                changes: result.affectedRows,
+                id: req.params.id
+            });
+        }
+    });
+});
 
 module.exports = router;
