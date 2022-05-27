@@ -75,7 +75,7 @@ router.delete('/role/:id', (req, res) =>{
         }
         else {
             res.json({
-                message: 'Route deleted successfully',
+                message: 'Role deleted successfully',
                 changes: result.affectedRows,
                 id: req.params.id
             });
